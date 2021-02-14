@@ -5,7 +5,7 @@ const searchBtn = document.getElementById('search-btn');
 const sliderBtn = document.getElementById('create-slider');
 const sliderContainer = document.getElementById('sliders');
 const search = document.getElementById('search');
-const spinner = document.getElementById('spinner');
+const spinner = document.getElementById('loading-spinner');
 // selected image 
 let sliders = [];
 
@@ -25,13 +25,20 @@ const showImages = (images) => {
     images.forEach(image => {
         let div = document.createElement('div');
         div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
-        div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
+        div.innerHTML = ` <div class="card" style="width: 18rem;">
+         <img class=" img-fluid img-thumbnail card-img-top rounded" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">
+        <div class="card-body">
+          <p class="card-text"><span class="text-danger"> <i class=" far fa-heart"> ${image.likes}</i> </span> <span class="text-primary p-1"><i class="far fa-eye"></i>${image.views}</span> <span class="text-success p-1"><i class="fas fa-arrow-down"></i>${image.downloads}</span><span class="text-info p-1"><i class="far fa-comment-alt"></i>${image.comments}</span> </p>
+        </div>
+      </div>
+       `;
         gallery.appendChild(div)
     })
     spinner.style.display = "none";
 }
 
 const getImages = (query) => {
+    toggleSpinner();
     fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
         .then(response => response.json())
         .then(data => showImages(data.hits))
@@ -140,3 +147,7 @@ search.addEventListener("keyup", function(event) {
         searchBtn.click();
     }
 });
+
+const toggleSpinner = () => {
+    spinner.classList.remove("d-none");
+}
