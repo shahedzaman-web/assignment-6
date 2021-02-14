@@ -25,7 +25,7 @@ const showImages = (images) => {
     images.forEach(image => {
         let div = document.createElement('div');
         div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
-        div.innerHTML = ` <div class="card" style="width: 18rem;">
+        div.innerHTML = ` <div class="card">
          <img class=" img-fluid img-thumbnail card-img-top rounded" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">
         <div class="card-body">
           <p class="card-text"><span class="text-danger"> <i class=" far fa-heart"> ${image.likes}</i> </span> <span class="text-primary p-1"><i class="far fa-eye"></i>${image.views}</span> <span class="text-success p-1"><i class="fas fa-arrow-down"></i>${image.downloads}</span><span class="text-info p-1"><i class="far fa-comment-alt"></i>${image.comments}</span> </p>
