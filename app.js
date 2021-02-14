@@ -5,6 +5,7 @@ const searchBtn = document.getElementById('search-btn');
 const sliderBtn = document.getElementById('create-slider');
 const sliderContainer = document.getElementById('sliders');
 const search = document.getElementById('search');
+const spinner = document.getElementById('spinner');
 // selected image 
 let sliders = [];
 
@@ -16,6 +17,7 @@ const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 
 // show images 
 const showImages = (images) => {
+
     imagesArea.style.display = 'block';
     gallery.innerHTML = '';
     // show gallery title
@@ -26,7 +28,7 @@ const showImages = (images) => {
         div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
         gallery.appendChild(div)
     })
-
+    spinner.style.display = "none";
 }
 
 const getImages = (query) => {
@@ -34,7 +36,7 @@ const getImages = (query) => {
         .then(response => response.json())
         .then(data => showImages(data.hits))
         .catch(err => console.log(err))
-
+    spinner.style.display = "block";
 }
 
 let slideIndex = 0;
